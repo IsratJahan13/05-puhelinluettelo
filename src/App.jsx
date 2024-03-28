@@ -33,7 +33,7 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      <ul>
+      <ul style={{ listStyleType: 'none' }}>
         {persons.map((person, index) => (
           <li key={index}>{person.name}</li>
         ))}
