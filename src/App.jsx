@@ -25,12 +25,17 @@ const App = () => {
       name: newName,
       number: newNumber
     }
+    axios
+    .post('http://localhost:3001/persons', personObject)
+    .then(response => {
+      setPersons(persons.concat(response.data))
+      setNewName('')
+      setNewNumber('')
+    })
+
     if(persons.find(person => person.name.toLowerCase() === newName.toLowerCase())) {
       alert(`${newName} is already added to phonebook`)
     }
-    setPersons(persons.concat(personObject))
-    setNewName('')
-    setNewNumber('')
   }
 
   const handleNameChange = (event) => {
