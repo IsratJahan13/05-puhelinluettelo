@@ -4,6 +4,7 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import axios from 'axios'
+import personService from './services/persons'
 
 
 const App = () => {
@@ -13,26 +14,46 @@ const App = () => {
   const [search, setSearch] = useState('')
 
   useEffect(() => {
-    axios.get('http://localhost:3001/persons').then(response => {
-      setPersons(response.data)
+    personService.getAll().then(initialPersons => {
+      setPersons(initialPersons)
     })
   }, [])
   console.log('render', persons.length, 'notes')
 
   const addPerson = (event) => {
     event.preventDefault()
+    const existingPerson = persons.find(person => person.name.toLowerCase() === newName.toLowerCase())
+
+  if (existingPerson) {
+    // If person already exists, update their number
+    const updatedPerson = { ...existingPerson, number: newNumber }
+
+    personService.update(existingPerson.id, updatedPerson)
+      .then(returnedPerson => {
+        setPersons(persons.map(person =>
+          person.id !== existingPerson.id ? person : returnedPerson
+        ))
+        setNewName('')
+        setNewNumber('')
+      })
+      .catch(error => {
+        console.error('Error updating person:', error)
+      })
+  } else {
     const personObject = {
       name: newName,
       number: newNumber
     }
-    axios
-    .post('http://localhost:3001/persons', personObject)
-    .then(response => {
-      setPersons(persons.concat(response.data))
+    personService.create(personObject)
+    .then(returnedPerson => {
+      setPersons(persons.concat(returnedPerson))
       setNewName('')
       setNewNumber('')
     })
-
+    .catch(error => {
+      console.error('Error adding person:', error)
+    })
+}
     if(persons.find(person => person.name.toLowerCase() === newName.toLowerCase())) {
       alert(`${newName} is already added to phonebook`)
     }
