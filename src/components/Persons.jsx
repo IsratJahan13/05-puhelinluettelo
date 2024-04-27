@@ -1,11 +1,16 @@
-const Persons = ({filteredPersons}) => {
-    return (
-        <ul style={{ listStyleType: 'none' }}>
-        {filteredPersons.map((person, index) => (
-          <li key={index}>{person.name} {person.number}</li>
-        ))}
-        </ul>
-    )
-}
+import React from 'react';
 
-export default Persons
+const Persons = ({ persons, handleDelete }) => {
+  return (
+    <ul style={{ listStyleType: 'none' }}>
+      {persons.map((person) => (
+        <li key={person.id}>
+          {person.name} {person.number} 
+          <button onClick={() => handleDelete(person.id)}>Delete</button>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+export default Persons;
