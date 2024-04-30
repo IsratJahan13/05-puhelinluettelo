@@ -1,5 +1,15 @@
+div {
+  font-family: Arial, Helvetica, sans-serif;
+  /* background-color: rgb(222, 251, 251); */
+}
+h1 {
+  color: rgb(32, 139, 254);
+}
+h2 {
+  color: rgb(32, 139, 254);
+}
+
 .person {
-    color: grey;
   padding-top: 5px;
   font-size: 15px;
 }
@@ -20,4 +30,16 @@
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 10px;
+  }
+  .addBtn {
+    padding: .5rem 1rem .5rem 1rem;
+    color: white;
+    background-color: rgb(32, 139, 254);
+    border: none;
+    border-radius: 5px;
+  }
+  .deleteBtn {
+    padding: .3rem .6rem .3rem .6rem;
+    border-color: rgb(116, 2, 2);
+    border-radius: 5px;
   }
